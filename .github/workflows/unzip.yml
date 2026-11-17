@@ -1,0 +1,32 @@
+name: Unzip site files
+
+on:
+  workflow_dispatch:
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract site zip to repo root
+        run: |
+          set -e
+          mkdir -p /tmp/site
+          unzip -o gtaleonida-site.zip -d /tmp/site
+          rm gtaleonida-site.zip
+          shopt -s dotglob
+          if [ "$(ls -A /tmp/site | wc -l)" -eq 1 ] && [ -d "/tmp/site/$(ls -A /tmp/site)" ]; then
+            mv "/tmp/site/$(ls -A /tmp/site)"/* .
+          else
+            mv /tmp/site/* .
+          fi
+          rmdir /tmp/site
+      - name: Commit extracted files
+        run: |
+          git config user.name "dharc132-gg"
+          git config user.email "dharc132-gg@users.noreply.github.com"
+          git add -A
+          git commit -m "Extract site files from gtaleonida-site.zip" || echo "nothing to commit"
+          git push
