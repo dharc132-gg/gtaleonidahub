@@ -4,21 +4,23 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="dark" />
-<meta name="description" content="The full map of Leonida, embedded live from the State of Leonida community mapping project — zoom, pan and explore every street, plus the confirmed-activities checklist." />
+<meta name="description" content="Rockstar's official map of Leonida — zoom, pan and explore the Great State of Leonida, plus the confirmed-activities checklist." />
 <link rel="canonical" href="https://gtaleonidahub.vercel.app/map.html" />
 <meta property="og:title" content="GTA Leonida — GTA VI Countdown, Confirmed Answers &amp; Checklist" />
-<meta property="og:description" content="The full map of Leonida, embedded live from the State of Leonida community mapping project — zoom, pan and explore every street, plus the confirmed-activities checklist." />
+<meta property="og:description" content="Rockstar's official map of Leonida — zoom, pan and explore the Great State of Leonida, plus the confirmed-activities checklist." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://gtaleonidahub.vercel.app/map.html" />
 <meta property="og:image" content="https://gtaleonidahub.vercel.app/og-banner.jpg" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="GTA Leonida — GTA VI Countdown, Confirmed Answers &amp; Checklist" />
-<meta name="twitter:description" content="The full map of Leonida, embedded live from the State of Leonida community mapping project — zoom, pan and explore every street, plus the confirmed-activities checklist." />
+<meta name="twitter:description" content="Rockstar's official map of Leonida — zoom, pan and explore the Great State of Leonida, plus the confirmed-activities checklist." />
 <meta name="twitter:image" content="https://gtaleonidahub.vercel.app/og-banner.jpg" />
 <link rel="icon" href="data:," />
 <title>Leonida Map — The Full Interactive Map | GTA Leonida</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
 :root{
   --bg:#07060e; --bg2:#0d0b1a; --panel:#12101f; --panel2:#17142a;
@@ -245,12 +247,85 @@ footer p{color:var(--ink-faint);max-width:640px;font-size:14.5px}
   <div class="pagehead">
     <p class="kicker">Interactive · Leonida</p>
     <h1>The <span class="grad">Map</span></h1>
-    <p>The full map of Leonida — the whole state, street by street. Zoom in, pan around and explore it right here. Below the map, tick off the nine <strong>confirmed activities</strong> as you do them in-game; your ticks save in this browser and sync with the Tracker page.</p>
+    <p>Rockstar's official map of Leonida — the whole state, from Vice City to the Keys. Zoom in, pan around and explore it right here. Below the map, tick off the nine <strong>confirmed activities</strong> as you do them in-game; your ticks save in this browser and sync with the Tracker page.</p>
   </div>
 
-  <div class="map-note"><strong>About this map:</strong> it's the <strong>State of Leonida</strong> community mapping project — a fan-made map built by the GTA mapping community from official footage and analysis, embedded here live with credit. It is <strong>not</strong> Rockstar's official map: treat street-level detail as the community's best work, not gospel. Rockstar releases the official map of Leonida as a free download on Nov 19, and we'll bring it here the same day. <a href="https://map.stateofleonida.net/en/" target="_blank" rel="noopener">Open the map on State of Leonida ↗</a></div>
+  <div class="map-note"><strong>About this map:</strong> this is Rockstar Games' <strong>official map of Leonida</strong> — "The Great State of Leonida" — released as a free download on launch day, Nov 19, 2026. <a href="https://www.rockstargames.com/VI/media" target="_blank" rel="noopener">Download it free from Rockstar ↗</a> · Prefer the fan-made interactive version? <a href="https://map.stateofleonida.net/en/" target="_blank" rel="noopener">Explore the State of Leonida community map ↗</a></div>
 
-  <iframe class="map-embed" src="https://map.stateofleonida.net/en/" title="State of Leonida — full interactive map of Leonida" loading="lazy" allowfullscreen></iframe>
+  <div class="filters">
+    <button class="chip on" type="button" data-f="all">All activities</button>
+    <button class="chip" type="button" data-f="water">Water</button>
+    <button class="chip" type="button" data-f="wheels">Wheels</button>
+    <button class="chip" type="button" data-f="sports">Sports</button>
+    <button class="chip" type="button" data-f="air">Air</button>
+  </div>
+
+  <div id="map"></div>
+
+<script>
+var IMG_W = 2805, IMG_H = 3840;
+var MAP_KEY = 'gl_progress_v1';
+function mapLoadP(){ try{ return JSON.parse(localStorage.getItem(MAP_KEY))||{}; }catch(e){ return {}; } }
+function mapSaveP(p){ try{ localStorage.setItem(MAP_KEY, JSON.stringify(p)); }catch(e){} }
+
+var ACTIVITIES = [
+  {id:'jetski',     name:'Jet skiing',      cat:'water',  x:58, y:80, note:'Confirmed in official footage — the Leonida Keys, around Key Lento (near grid L6 on the official map).'},
+  {id:'scuba',      name:'Scuba diving',    cat:'water',  x:66, y:86, note:'Confirmed in official footage — reefs and wrecks below the surface, off the Keys (near grid M7).'},
+  {id:'fishing',    name:'Fishing',         cat:'water',  x:47, y:68, note:'Confirmed in official footage — the Grassrivers wetlands are Leonida’s fishing heartland (near grid J5).'},
+  {id:'carmeet',    name:'Car meets',       cat:'wheels', x:68, y:54, note:'Confirmed in official footage — Vice City lots fill up after dark (near grid H7).'},
+  {id:'streetrace', name:'Street racing',   cat:'wheels', x:76, y:55, note:'Confirmed in official footage — late-night runs through Vice City (near grid H8).'},
+  {id:'dirtbike',   name:'Dirt-bike racing',cat:'wheels', x:55, y:33, note:'Confirmed in official footage — mud, jumps and trails inland around Ambrosia (near grid E6).'},
+  {id:'basketball', name:'Basketball',      cat:'sports', x:72, y:52, note:'Confirmed in official footage — street courts around Vice City (near grid G7).'},
+  {id:'basejump',   name:'Base jumping',    cat:'air',    x:47, y:21, note:'Confirmed in official footage — Mount Kalaga National Park, the state’s high country (near grid C5).'},
+  {id:'escooter',   name:'E-scooters',      cat:'sports', x:88, y:51, note:'Confirmed in official footage — the Vice Beach boardwalk run (near grid G9).'}
+];
+
+var map = L.map('map', { crs: L.CRS.Simple, minZoom: -2, maxZoom: 2, zoomSnap: .25, attributionControl: false });
+var bounds = [[0,0],[IMG_H, IMG_W]];
+L.imageOverlay('img/leonida_map_official.jpg', bounds).addTo(map);
+map.fitBounds(bounds);
+
+var markers = {};
+function pinIcon(a){
+  var done = !!mapLoadP()[a.id];
+  return L.divIcon({ className:'', html:'<div class="pin'+(done?' done':'')+'">'+(done?'✓':a.name.charAt(0))+'</div>', iconSize:[34,34], iconAnchor:[17,17] });
+}
+function refreshCount(){
+  var n = ACTIVITIES.filter(function(a){ return mapLoadP()[a.id]; }).length;
+  var el = document.getElementById('map-count');
+  if(el) el.textContent = n;
+}
+ACTIVITIES.forEach(function(a){
+  var lat = IMG_H * (1 - a.y/100), lng = IMG_W * (a.x/100);
+  var mk = L.marker([lat,lng], { icon: pinIcon(a) }).addTo(map);
+  mk.bindPopup('<div class="pop"><h4>'+a.name+'</h4><p>'+a.note+'</p>'+
+    '<p><em>Pin placed on Rockstar’s official map — exact in-game spots to be refined as players explore.</em></p>'+
+    '<label><input type="checkbox" data-act="'+a.id+'" '+(mapLoadP()[a.id]?'checked':'')+' /> Done it</label></div>');
+  mk.on('popupopen', function(e){
+    var cb = e.popup.getElement().querySelector('input[data-act]');
+    cb.addEventListener('change', function(){
+      var p = mapLoadP(); p[a.id] = cb.checked; mapSaveP(p);
+      mk.setIcon(pinIcon(a)); refreshCount();
+      if(typeof refreshMapCount === 'function') refreshMapCount();
+    });
+  });
+  markers[a.id] = mk;
+});
+refreshCount();
+
+document.querySelectorAll('.chip').forEach(function(chip){
+  chip.addEventListener('click', function(){
+    document.querySelectorAll('.chip').forEach(function(c){ c.classList.remove('on'); });
+    chip.classList.add('on');
+    var f = chip.getAttribute('data-f');
+    ACTIVITIES.forEach(function(a){
+      var show = (f==='all' || a.cat===f);
+      if(show){ if(!map.hasLayer(markers[a.id])) markers[a.id].addTo(map); }
+      else { if(map.hasLayer(markers[a.id])) map.removeLayer(markers[a.id]); }
+    });
+  });
+});
+</script>
 
   <h2 class="sec" style="font-size:26px;margin:30px 0 8px">Confirmed activities — your checklist</h2>
   <p style="color:var(--ink-dim);margin:0 0 16px">All nine are confirmed in Rockstar's official footage. Find them on the map above, do them in-game, tick them off.</p>
