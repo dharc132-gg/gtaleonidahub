@@ -138,6 +138,18 @@ section.block{padding:64px 0 8px}
 .yt-icon svg{width:24px;height:24px;fill:#14101f}
 .yt-note{display:inline-block;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
 .w-cta{margin-top:14px}
+.vid-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-top:8px}
+.vid-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.vid-card img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:#000}
+.vid-card .v-body{padding:12px 14px}
+.vid-card h4{margin:0 0 8px;font-size:16.5px;line-height:1.25}
+.vid-card .v-links{display:flex;gap:8px;flex-wrap:wrap}
+.vid-card .v-links a{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink)}
+.vid-card .v-links a.ytl{border-color:rgba(255,45,120,.55);color:#ff7eb3}
+.vid-card .v-links a.fbl{border-color:rgba(45,212,191,.5);color:var(--teal)}
+.vid-feat{border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.vid-feat iframe{width:100%;aspect-ratio:16/9;display:block;border:0}
+.sec-head{margin:6px 0 4px}
 /* map */
 .map-note{background:rgba(45,212,191,.08);border:1px solid rgba(45,212,191,.35);border-radius:12px;padding:13px 16px;color:var(--ink-dim);margin-bottom:16px}
 .map-note strong{color:var(--teal)}
@@ -256,15 +268,48 @@ footer p{color:var(--ink-faint);max-width:640px;font-size:14.5px}
         <p class="w-k">YouTube</p>
         <h3>GTA Leonida <span class="teal">on YouTube</span></h3>
         <p class="w-desc">The same daily Shorts and launch coverage, on YouTube.</p>
-        <div class="yt-placeholder">
-          <div class="yt-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-          <p><strong>GTA Leonida on YouTube — channel launching today.</strong> The daily Shorts will play right here from launch day, Thu Nov 19.</p>
-          <span class="yt-note">First uploads: Thu Nov 19</span>
+        <div class="vid-feat">
+          <iframe src="https://www.youtube.com/embed/t-85IuwJQII" title="Michael, Franklin & Trevor Gave Me GTA VI — GTA Leonida" allowfullscreen loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"></iframe>
+        </div>
+        <p class="w-desc" style="margin-top:12px"><strong>Featured:</strong> Michael, Franklin &amp; Trevor hand CJ the game — our launch-day special, live now.</p>
+        <div class="w-cta">
+          <a class="btn btn-yt" href="https://www.youtube.com/@GTALeonida01" target="_blank" rel="noopener">Subscribe on YouTube</a>
         </div>
       </article>
     </div>
+  </section>
+  <section class="block">
+    <h2 class="sec-head">Launch Day <span class="grad">Gameplay</span></h2>
+    <p class="w-desc">The first real GTA VI gameplay clips — live on YouTube and Facebook on launch night.</p>
+    <div class="vid-grid">
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/eBPTuychE24/hqdefault.jpg" alt="Kai Cenat's first scene in GTA VI" loading="lazy"><div class="v-body"><h4>Kai Cenat — First Scene in GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/eBPTuychE24" target="_blank" rel="noopener">YouTube</a><a class="fbl" href="https://www.facebook.com/reel/4814623085527146" target="_blank" rel="noopener">Facebook</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/PjNwG5Zboo4/hqdefault.jpg" alt="IShowSpeed's first scene in GTA VI" loading="lazy"><div class="v-body"><h4>IShowSpeed — First Scene in GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/PjNwG5Zboo4" target="_blank" rel="noopener">YouTube</a><a class="fbl" href="https://www.facebook.com/reel/2225018831742460" target="_blank" rel="noopener">Facebook</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/Qe7TCHrRVIo/hqdefault.jpg" alt="Leonida from above — seaplane over the Keys" loading="lazy"><div class="v-body"><h4>Leonida From Above — Seaplane Over the Keys</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/Qe7TCHrRVIo" target="_blank" rel="noopener">YouTube</a><a class="fbl" href="https://www.facebook.com/reel/1135353302236837" target="_blank" rel="noopener">Facebook</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/P0w9DDI1j3I/hqdefault.jpg" alt="Kai Cenat reveals the GTA VI map" loading="lazy"><div class="v-body"><h4>Kai Cenat — First Map Reveal</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/P0w9DDI1j3I" target="_blank" rel="noopener">YouTube</a><a class="fbl" href="https://www.facebook.com/reel/1195390906486555" target="_blank" rel="noopener">Facebook</a></div></div></article>
+    </div>
+  </section>
+  <section class="block">
+    <h2 class="sec-head">Countdown <span class="grad">Classics</span></h2>
+    <p class="w-desc">All 16 seed Shorts from launch week — every confirmed trailer moment, cut GTA Leonida style.</p>
+    <div class="vid-grid">
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/-KXUCRt3dXA/hqdefault.jpg" alt="Pre-Load Is Live" loading="lazy"><div class="v-body"><h4>Pre-Load Is Live | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/-KXUCRt3dXA" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/wTbuzjJY9Ug/hqdefault.jpg" alt="Leonida Is Huge" loading="lazy"><div class="v-body"><h4>Leonida Is Huge | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/wTbuzjJY9Ug" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/5lzBX8_qgP8/hqdefault.jpg" alt="Lucia Walks Free" loading="lazy"><div class="v-body"><h4>Lucia Walks Free | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/5lzBX8_qgP8" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/ejiEn5Jh-bs/hqdefault.jpg" alt="Meet Jason" loading="lazy"><div class="v-body"><h4>Meet Jason | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/ejiEn5Jh-bs" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/bUP4nsQUeeg/hqdefault.jpg" alt="Only in Leonida" loading="lazy"><div class="v-body"><h4>Only in Leonida | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/bUP4nsQUeeg" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/tJRzYur93uA/hqdefault.jpg" alt="Leonida After Dark" loading="lazy"><div class="v-body"><h4>Leonida After Dark | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/tJRzYur93uA" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/fJuhqQ_c3tw/hqdefault.jpg" alt="Choppers and Stunts" loading="lazy"><div class="v-body"><h4>Choppers &amp; Stunts | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/fJuhqQ_c3tw" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/qM39_iBZ_y8/hqdefault.jpg" alt="So Much To Do" loading="lazy"><div class="v-body"><h4>So Much To Do | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/qM39_iBZ_y8" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/EfSCQr0OoGM/hqdefault.jpg" alt="Tomorrow" loading="lazy"><div class="v-body"><h4>Tomorrow | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/EfSCQr0OoGM" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/p4kS2TvwrKk/hqdefault.jpg" alt="Real-Life Vice City" loading="lazy"><div class="v-body"><h4>Real-Life Vice City | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/p4kS2TvwrKk" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/P3GL2LNQPl4/hqdefault.jpg" alt="The Pickup" loading="lazy"><div class="v-body"><h4>The Pickup | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/P3GL2LNQPl4" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/662J-s-4OuQ/hqdefault.jpg" alt="Pre-Load Tonight" loading="lazy"><div class="v-body"><h4>Pre-Load Tonight | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/662J-s-4OuQ" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/uTkG9aYhtqo/hqdefault.jpg" alt="Every GTA VI Clip So Far" loading="lazy"><div class="v-body"><h4>Every GTA VI Clip So Far</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/uTkG9aYhtqo" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/Szg9ThwKlW0/hqdefault.jpg" alt="24 Hours Left" loading="lazy"><div class="v-body"><h4>24 Hours Left | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/Szg9ThwKlW0" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/RrusqCDMaLw/hqdefault.jpg" alt="Know Before Tomorrow" loading="lazy"><div class="v-body"><h4>Know Before Tomorrow | GTA VI</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/RrusqCDMaLw" target="_blank" rel="noopener">YouTube</a></div></div></article>
+      <article class="vid-card"><img src="https://i.ytimg.com/vi/Mm5lLvlGqjw/hqdefault.jpg" alt="GTA VI x NBA 2K27" loading="lazy"><div class="v-body"><h4>GTA VI x NBA 2K27</h4><div class="v-links"><a class="ytl" href="https://youtube.com/shorts/Mm5lLvlGqjw" target="_blank" rel="noopener">YouTube</a></div></div></article>
+    </div>
+    <p class="w-desc" style="margin-top:14px">Every Short also lives as a Reel on the <a href="https://www.facebook.com/profile.php?id=61596663597300" target="_blank" rel="noopener">GTA Leonida Facebook Page</a>. New videos land here the same hour they post — YouTube ✓ Facebook ✓ Hub ✓.</p>
   </section>
 </main>
 <footer><div class="wrap">
